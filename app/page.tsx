@@ -1,74 +1,133 @@
 "use client";
-import { useState } from "react";
-// import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { FontistoCar } from "@/public/icons/CarIcon";
-import { DatePicker } from "@/components/DatePicker";
-import { Input } from "@/components/ui/input";
-import { MdiAirplaneLanding } from "@/public/icons/PlaneLandingIcon";
-import { MdiAirplaneTakeoff } from "@/public/icons/PlaneTakeoffIcons";
+import FlightInformation from "@/components/FlightInformation";
+import BookYourFlight from "@/components/BookYourFlight";
+import SidebarCards from "@/components/SidebarCards";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+// import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
-  const [isRoundTrip, setIsRoundTrip] = useState(true);
-
   return (
-    <div className="min-h-screen max-w-full bg-gray-100 p-4">
-      <div className="flex gap-4">
-        {/* Flight Search Form */}
-        <div className="w-3/4 bg-white p-6 rounded-lg shadow-md">
-          <div className="mb-4 flex justify-between items-center">
-            <h2 className="text-xl font-bold">Book Your Flight</h2>
-            <div className="flex gap-4">
-              <button
-                className={`px-4 py-2 rounded ${
-                  isRoundTrip
-                    ? "bg-secondary text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-                onClick={() => setIsRoundTrip(true)}
-              >
-                Round trip
-              </button>
-              <button
-                className={`px-4 py-2 rounded ${
-                  !isRoundTrip
-                    ? "bg-secondary text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-                onClick={() => setIsRoundTrip(false)}
-              >
-                One way
-              </button>
+    <div className="min-h-fit p-4">
+      <main className="flex flex-col">
+        <div className="flex">
+          <div className="w-3/4 pr-4">
+            <BookYourFlight />
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <Select>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Sort by: Lowest Price" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Sort by</SelectLabel>
+                      <SelectItem value="lowest-price">Lowest Price</SelectItem>
+                      <SelectItem value="highest-price">
+                        Highest Price
+                      </SelectItem>
+                      <SelectItem value="shortest-duration">
+                        Shortest Duration
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-          </div>
-
-          {/* Search Inputs */}
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            <Input type="select" />
-            <DatePicker />
-          </div>
-          <button className="bg-secondary text-white px-4 py-2 rounded-lg">
-            Show flights
-          </button>
-        </div>
-        <aside className="w-1/4 space-y-4">
-          <div className="max-w-xs w-full group/card">
-            <div
-              className={cn(
-                " cursor-pointer overflow-hidden relative card h-72 rounded-xl shadow-xl  max-w-sm mx-auto backgroundImage flex flex-col justify-between p-4",
-                "bg-[url(/home/car-rentals.jpg)] bg-cover"
-              )}
-            >
-              <div className="flex flex-col mt-44 justify-end">
-                <FontistoCar className="w-10 h-10 text-white" />
-                <h1 className="font-bold text-xl md:text-2xl text-white relative z-10">
-                  Car Rentals
-                </h1>
+            <div className="flex">
+              <div className="w-2/3 pr-4">
+                <FlightInformation
+                  from="Milano"
+                  to="Madrid"
+                  departureTime="7:30 AM"
+                  arrivalTime="9:55 AM"
+                  departureAirport="MXP"
+                  arrivalAirport="MAD"
+                  duration="2h 25m"
+                  price={200}
+                  airline="Alitalia"
+                />
+                <FlightInformation
+                  from="Milano"
+                  to="Madrid"
+                  departureTime="8:30 PM"
+                  arrivalTime="10:25 PM"
+                  departureAirport="MXP"
+                  arrivalAirport="MAD"
+                  duration="2h 25m"
+                  price={234}
+                  airline="Alitalia"
+                />
+              </div>
+              <div className="w-1/3">
+                <div className="bg-white p-4 rounded-lg shadow-md">
+                  <h3 className="font-semibold mb-2">Arrival Time</h3>
+                  <div className="space-y-2">
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="arrival-time"
+                        className="mr-2"
+                      />
+                      5:00 AM - 11:59 AM
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="arrival-time"
+                        className="mr-2"
+                      />
+                      12:00 PM - 5:59 PM
+                    </label>
+                  </div>
+                  <h3 className="font-semibold mt-4 mb-2">Stops</h3>
+                  <div className="space-y-2">
+                    <label className="flex items-center justify-between">
+                      <span>Nonstop</span>
+                      <span className="text-gray-500">$230</span>
+                    </label>
+                    <label className="flex items-center justify-between">
+                      <span>1 Stop</span>
+                      <span className="text-gray-500">$230</span>
+                    </label>
+                    <label className="flex items-center justify-between">
+                      <span>2+ Stops</span>
+                      <span className="text-gray-500">$230</span>
+                    </label>
+                  </div>
+                  <h3 className="font-semibold mt-4 mb-2">Airlines Included</h3>
+                  <div className="space-y-2">
+                    {[
+                      "Alitalia",
+                      "Lufthansa",
+                      "Air France",
+                      "Brussels Airlines",
+                      "Air Italy",
+                      "Siberia",
+                    ].map((airline) => (
+                      <label
+                        key={airline}
+                        className="flex items-center justify-between"
+                      >
+                        <span>{airline}</span>
+                        <span className="text-gray-500">$230</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </aside>
-      </div>
+          <SidebarCards />
+        </div>
+      </main>
     </div>
   );
 };

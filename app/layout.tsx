@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary text-tertiary`}
       >
         <Navigation />
-        <div className="mx-auto px-6 pb-24 pt-16 md:px-6 md:pb-44 md:pt-6">
+        <div className="mx-auto px-6 pb-24 pt-16 md:px-6 md:pt-6">
           {children}
         </div>
       </body>

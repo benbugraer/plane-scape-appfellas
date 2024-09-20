@@ -26,6 +26,7 @@ const config: Config = {
         primary: "#F6F4F8",
         secondary: "#4B0097",
         tertiary: "#ccc",
+        cardBg: "#FFFFFF",
       },
       borderRadius: {
         lg: "var(--radius)",
