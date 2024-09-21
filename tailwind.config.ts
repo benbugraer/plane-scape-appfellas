@@ -13,7 +13,7 @@ const config: Config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1800px",
+        "2xl": "1280px",
       },
     },
     extend: {
@@ -27,12 +27,27 @@ const config: Config = {
         secondary: "#4B0097",
         tertiary: "#ccc",
         cardBg: "#FFFFFF",
+        btnBg: "#E6E0EB",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+    },
+    keyframes: {
+      in: {
+        "0%": { transform: "translateY(18px)", opacity: "0" },
+        "100%": { transform: "translateY(0)", opacity: "1" },
+      },
+      "in-reverse": {
+        "0%": { transform: "translateY(0)", opacity: "0" },
+        "100%": { transform: "translateY(18px)", opacity: "1" },
+      },
+    },
+    animation: {
+      in: "in .6s both",
+      "in-reverse": "in-reverse .6s both",
     },
   },
   plugins: [],

@@ -8,13 +8,22 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { CSSProperties } from "react";
 
 export default function FilterFlights() {
   return (
-    <div className="rounded-lg shadow-md w-3/4 pr-4">
-      <h3 className="font-semibold mb-4">Sort by:</h3>
+    <div className="rounded-lg w-3/4 ml-12">
+      <h3
+        className="font-semibold mb-4 animate-in"
+        style={{ "--index": 0 } as CSSProperties}
+      >
+        Sort by:
+      </h3>
       <Select defaultValue="lowest">
-        <SelectTrigger className="w-full">
+        <SelectTrigger
+          className="w-full bg-white animate-in"
+          style={{ "--index": 1 } as CSSProperties}
+        >
           <SelectValue placeholder="Lowest Price" />
         </SelectTrigger>
         <SelectContent>
@@ -24,9 +33,18 @@ export default function FilterFlights() {
         </SelectContent>
       </Select>
 
-      <h3 className="font-semibold mt-6 mb-2">Arrival Time</h3>
-      <RadioGroup defaultValue="morning">
-        <div className="flex items-center space-x-2">
+      <h3
+        className="font-semibold mt-6 mb-2 animate-in"
+        style={{ "--index": 2 } as CSSProperties}
+      >
+        Arrival Time
+      </h3>
+      <RadioGroup
+        defaultValue="morning"
+        className="animate-in"
+        style={{ "--index": 3 } as CSSProperties}
+      >
+        <div className="flex items-center space-x-2 ">
           <RadioGroupItem value="morning" id="morning" />
           <Label htmlFor="morning">5:00 AM - 11:59 AM</Label>
         </div>
@@ -36,8 +54,16 @@ export default function FilterFlights() {
         </div>
       </RadioGroup>
 
-      <h3 className="font-semibold mt-6 mb-2">Stops</h3>
-      <div className="space-y-2">
+      <h3
+        className="font-semibold mt-6 mb-2 animate-in"
+        style={{ "--index": 5 } as CSSProperties}
+      >
+        Stops
+      </h3>
+      <div
+        className="space-y-2 animate-in"
+        style={{ "--index": 6 } as CSSProperties}
+      >
         {["Nonstop", "1 Stop", "2+ Stops"].map((stop) => (
           <div key={stop} className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
@@ -51,7 +77,12 @@ export default function FilterFlights() {
         ))}
       </div>
 
-      <h3 className="font-semibold mt-6 mb-2">Airlines Included</h3>
+      <h3
+        className="font-semibold mt-6 mb-2 animate-in"
+        style={{ "--index": 7 } as CSSProperties}
+      >
+        Airlines Included
+      </h3>
       <div className="space-y-2">
         {[
           "Alitalia",
@@ -61,7 +92,11 @@ export default function FilterFlights() {
           "Air Italy",
           "Siberia",
         ].map((airline) => (
-          <div key={airline} className="flex justify-between items-center">
+          <div
+            key={airline}
+            className="flex justify-between items-center animate-in"
+            style={{ "--index": 8 } as CSSProperties}
+          >
             <div className="flex items-center space-x-2">
               <Checkbox id={airline.toLowerCase().replace(" ", "-")} />
               <label htmlFor={airline.toLowerCase().replace(" ", "-")}>

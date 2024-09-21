@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ZondiconsAirplane } from "@/public/icons/PlaneIcon";
 import { ZondiconsTag } from "@/public/icons/TagIcon";
 import { FluentMdl2World } from "@/public/icons/WorldIcon";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -11,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Menu } from "lucide-react";
+import { Logo } from "@/public/icons/Logo";
+import { CSSProperties } from "react";
 
 const navItems = [
   { label: "Deals", href: "/", icon: <ZondiconsTag className="w-5 h-5" /> },
@@ -23,13 +24,16 @@ const navItems = [
 
 export default function Navigation() {
   return (
-    <header className="bg-opacity-30 top-0 sticky z-40 w-full backdrop-blur-xl">
+    <header
+      className="bg-opacity-30 top-0 sticky z-40 w-full backdrop-blur-xl animate-in"
+      style={{ "--index": 0 } as CSSProperties}
+    >
       <div className="container flex h-16 items-center">
         <Link
           href="/"
           className="relative uppercase text-lg font-normal tracking-tighter mr-8 flex items-center space-x-2"
         >
-          <ZondiconsAirplane className="w-7 h-7" />
+          <Logo className="w-7 h-7" />
           <span className="font-bold tracking-normal">PLANE SCAPE</span>
         </Link>
         <nav className="hidden xl:flex items-center gap-3 text-[1rem] justify-end ml-auto">
