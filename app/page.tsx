@@ -1,19 +1,24 @@
 "use client";
-import FlightInformation from "@/components/FlightInformation";
-import BookYourFlight from "@/components/BookYourFlight";
-import SidebarCards from "@/components/SidebarCards";
-// import { Button } from "@/components/ui/button";
-import FilterFlights from "@/components/FilterFlights";
+import FlightInformation from "@/components/homepage/FlightInformation";
+import SidebarCards from "@/components/homepage/SidebarCards";
+import FlightForm from "@/components/homepage/FlightForm";
+import FilterFlights from "@/components/homepage/FilterFlights";
+import { useState } from "react";
 
 const HomePage = () => {
+  const [showFilter, setShowFilter] = useState(false);
+
   return (
     <div className="min-h-fit">
-      <main className="flex flex-col">
-        <div className="flex">
-          <div className="w-3/4">
-            <BookYourFlight />
-            <div className="flex">
-              <div className="w-2/3 pr-4">
+      <main className="flex flex-col px-4 md:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row">
+          <div className="w-full lg:w-3/4">
+            <FlightForm />
+            <div className="flex flex-col lg:flex-row">
+              <div className="w-full lg:w-2/3 pr-0 lg:pr-4">
+                <div className="flex justify-between items-center lg:hidden">
+                  <h2 className="text-xl font-bold">Flight Results</h2>
+                </div>
                 <FlightInformation
                   from="Milano"
                   to="Madrid"
@@ -37,7 +42,17 @@ const HomePage = () => {
                   airline="Alitalia"
                 />
               </div>
-              <div className="w-1/3">
+              <button
+                onClick={() => setShowFilter(!showFilter)}
+                className="bg-secondary text-white px-4 py-2 rounded-lg my-6 block md:hidden"
+              >
+                {showFilter ? "Hide Filters" : "Show Filters"}
+              </button>
+              <div
+                className={`w-full lg:w-1/3 ${
+                  showFilter ? "block" : "hidden"
+                } lg:block`}
+              >
                 <FilterFlights />
               </div>
             </div>

@@ -1,7 +1,7 @@
-"use state";
+"use client";
 
 import React, { useState, CSSProperties } from "react";
-import { DatePicker } from "@/components/DatePicker";
+import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/button";
 import { MdiAirplaneLanding } from "@/public/icons/PlaneLandingIcon";
 import { MdiAirplaneTakeoff } from "@/public/icons/PlaneTakeoffIcons";
@@ -29,7 +29,7 @@ const airports: Airport[] = [
   { code: "SEA", name: "Seattle-Tacoma International Airport" },
 ];
 
-export default function BookYourFlight() {
+export default function FlightForm() {
   const [isRoundTrip, setIsRoundTrip] = useState(true);
 
   const handleTripTypeChange = (type: "round" | "oneway") => {
@@ -38,18 +38,18 @@ export default function BookYourFlight() {
 
   return (
     <div
-      className="mb-12 bg-cardBg p-6 rounded-lg shadow-md animate-in"
+      className="mb-8 bg-cardBg p-4 md:p-6 rounded-lg shadow-md animate-in"
       style={{ "--index": 0 } as CSSProperties}
     >
       <div
-        className="mb-4 flex justify-between items-center animate-in"
+        className="mb-4 flex flex-col md:flex-row justify-between items-center animate-in"
         style={{ "--index": 1 } as CSSProperties}
       >
-        <h2 className="text-xl font-bold flex items-center gap-2">
+        <h2 className="text-xl font-bold flex items-center gap-2 mb-4 md:mb-0">
           <ZondiconsAirplane /> Book Your Flight
         </h2>
         <div
-          className="flex gap-0 mr-8 mb-4 animate-in"
+          className="flex gap-0 mb-4 md:mb-0 animate-in"
           style={{ "--index": 3 } as CSSProperties}
         >
           <Button
@@ -77,10 +77,10 @@ export default function BookYourFlight() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="flex gap-1 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4">
+        <div className="flex flex-col md:flex-row gap-1 w-full">
           <LocationSelect
-            className="rounded-l-full rounded-r-none animate-in"
+            className=" md:rounded-l-full md:rounded-r-none animate-in"
             style={{ "--index": 2 } as CSSProperties}
             placeholder={
               <MdiAirplaneTakeoff className="w-5 h-5 text-primary" />
@@ -89,7 +89,7 @@ export default function BookYourFlight() {
             options={airports}
           />
           <LocationSelect
-            className="rounded-r-full rounded-l-none animate-in"
+            className=" md:rounded-r-full md:rounded-l-none animate-in"
             style={{ "--index": 3 } as CSSProperties}
             placeholder={
               <MdiAirplaneLanding className="w-5 h-5 text-primary" />
@@ -100,21 +100,25 @@ export default function BookYourFlight() {
         </div>
 
         <div
-          className="flex gap-1 mx-auto animate-in"
+          className="flex flex-col md:flex-row gap-1 mx-auto animate-in"
           style={{ "--index": 4 } as CSSProperties}
         >
           <DatePicker
-            className={clsx(
-              "rounded-l-full",
-              !isRoundTrip && "rounded-full animate-in"
-            )}
+            className={clsx("md:rounded-l-full", !isRoundTrip && "")}
           />
-          {isRoundTrip && <DatePicker className="rounded-r-full animate-in" />}
+          <DatePicker
+            className={clsx(
+              "md:rounded-r-full",
+              !isRoundTrip &&
+                "opacity bg-gray-400 text-white cursor-not-allowed"
+            )}
+            disabled={!isRoundTrip} // Round trip değilse disabled olur
+          />
         </div>
       </div>
 
       <Button
-        className="bg-secondary text-white px-4 py-5 mt-4 rounded-lg font-bold animate-in"
+        className="bg-secondary text-white px-4 py-5 mt-4 rounded-lg font-bold w-full md:w-auto animate-in"
         style={{ "--index": 5 } as CSSProperties}
       >
         Show flights

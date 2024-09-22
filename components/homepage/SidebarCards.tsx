@@ -22,8 +22,8 @@ const Card: React.FC<CardProps> = ({ title, imageUrl, icon: Icon }) => (
       <Image
         src={imageUrl}
         alt={title}
-        layout="fill"
-        objectFit="cover"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="rounded-2xl animate-in"
         style={{ "--index": 1 } as CSSProperties}
       />
@@ -64,7 +64,7 @@ const SidebarCards: React.FC = () => {
   ];
 
   return (
-    <div className="w-full md:w-1/4 space-y-6">
+    <div className="w-full md:w-1/4 space-y-9">
       {cards.map((card, index) => (
         <Card
           key={index}

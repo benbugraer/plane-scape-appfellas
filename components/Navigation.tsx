@@ -25,7 +25,7 @@ const navItems = [
 export default function Navigation() {
   return (
     <header
-      className="bg-opacity-30 top-0 sticky z-40 w-full backdrop-blur-xl animate-in"
+      className="bg-opacity-30 max-w-full top-0 sticky z-40 w-full backdrop-blur-xl animate-in"
       style={{ "--index": 0 } as CSSProperties}
     >
       <div className="container flex h-16 items-center">
@@ -48,7 +48,7 @@ export default function Navigation() {
             ))}
           </ul>
         </nav>
-        <div className="ml-8 flex items-center gap-2 cursor-pointer">
+        <div className="flex items-center justify-end ml-auto lg:ml-0 gap-2 cursor-pointer">
           <Avatar>
             <AvatarImage src="/profile.jpg" />
           </Avatar>

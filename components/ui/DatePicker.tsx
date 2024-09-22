@@ -16,9 +16,10 @@ import {
 interface DatePickerProps {
   className?: string;
   style?: CSSProperties;
+  disabled?: boolean; // disabled prop eklendi
 }
 
-export function DatePicker({ className, style }: DatePickerProps) {
+export function DatePicker({ className, style, disabled }: DatePickerProps) {
   const [date, setDate] = React.useState<Date>();
 
   return (
@@ -29,22 +30,26 @@ export function DatePicker({ className, style }: DatePickerProps) {
           className={cn(
             className,
             "w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
+            !date && "text-muted-foreground",
+            disabled && "opacity-50 cursor-not-allowed" // disabled olunca stiller
           )}
           style={style}
+          disabled={disabled} // disabled prop ile butonu devre dışı bırakma
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-      </PopoverContent>
+      {!disabled && (
+        <PopoverContent className="w-auto p-0">
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            initialFocus
+          />
+        </PopoverContent>
+      )}
     </Popover>
   );
 }

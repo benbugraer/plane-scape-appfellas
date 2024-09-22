@@ -12,7 +12,7 @@ import { CSSProperties } from "react";
 
 export default function FilterFlights() {
   return (
-    <div className="rounded-lg w-3/4 ml-12">
+    <div className="rounded-lg w-full lg:w-3/4 mx-auto lg:ml-12 p-4">
       <h3
         className="font-semibold mb-4 animate-in"
         style={{ "--index": 0 } as CSSProperties}
@@ -44,7 +44,7 @@ export default function FilterFlights() {
         className="animate-in"
         style={{ "--index": 3 } as CSSProperties}
       >
-        <div className="flex items-center space-x-2 ">
+        <div className="flex items-center space-x-2">
           <RadioGroupItem value="morning" id="morning" />
           <Label htmlFor="morning">5:00 AM - 11:59 AM</Label>
         </div>
