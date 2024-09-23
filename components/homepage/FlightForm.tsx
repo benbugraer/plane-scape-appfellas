@@ -38,7 +38,7 @@ export default function FlightForm() {
 
   return (
     <div
-      className="mb-8 bg-cardBg p-4 md:p-6 rounded-lg shadow-md animate-in"
+      className="mb-8 bg-cardBg p-4 md:p-6 rounded-lg shadow-md animate-in max-w-full"
       style={{ "--index": 0 } as CSSProperties}
     >
       <div
@@ -54,7 +54,7 @@ export default function FlightForm() {
         >
           <Button
             className={clsx(
-              "rounded-l-full",
+              "rounded-l-full text-sm md:text-base py-2 px-4 md:px-6",
               isRoundTrip
                 ? "bg-secondary hover:bg-btnBg hover:text-primary"
                 : "bg-btnBg hover:bg-purple-700 text-primary hover:text-white"
@@ -65,7 +65,7 @@ export default function FlightForm() {
           </Button>
           <Button
             className={clsx(
-              "rounded-r-full",
+              "rounded-r-full text-sm md:text-base py-2 px-4 md:px-6",
               !isRoundTrip
                 ? "bg-secondary hover:bg-btnBg hover:text-primary"
                 : "bg-btnBg hover:bg-purple-700 text-primary hover:text-white"
@@ -77,10 +77,10 @@ export default function FlightForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div className="flex flex-col md:flex-row gap-1 w-full">
           <LocationSelect
-            className=" md:rounded-l-full md:rounded-r-none animate-in"
+            className="md:rounded-l-full md:rounded-r-none w-full animate-in"
             style={{ "--index": 2 } as CSSProperties}
             placeholder={
               <MdiAirplaneTakeoff className="w-5 h-5 text-primary" />
@@ -89,7 +89,7 @@ export default function FlightForm() {
             options={airports}
           />
           <LocationSelect
-            className=" md:rounded-r-full md:rounded-l-none animate-in"
+            className="md:rounded-r-full md:rounded-l-none w-full animate-in"
             style={{ "--index": 3 } as CSSProperties}
             placeholder={
               <MdiAirplaneLanding className="w-5 h-5 text-primary" />
@@ -100,19 +100,22 @@ export default function FlightForm() {
         </div>
 
         <div
-          className="flex flex-col md:flex-row gap-1 mx-auto animate-in"
+          className="flex flex-col md:flex-row gap-1 mx-auto w-full animate-in"
           style={{ "--index": 4 } as CSSProperties}
         >
           <DatePicker
-            className={clsx("md:rounded-l-full", !isRoundTrip && "")}
+            className={clsx(
+              "md:rounded-l-full w-full text-sm md:text-base",
+              !isRoundTrip && ""
+            )}
           />
           <DatePicker
             className={clsx(
-              "md:rounded-r-full",
+              "md:rounded-r-full w-full text-sm md:text-base",
               !isRoundTrip &&
-                "opacity bg-gray-400 text-white cursor-not-allowed"
+                "opacity-50 bg-gray-400 text-white cursor-not-allowed"
             )}
-            disabled={!isRoundTrip} // Round trip değilse disabled olur
+            disabled={!isRoundTrip}
           />
         </div>
       </div>
@@ -143,7 +146,10 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
   options,
 }) => (
   <Select>
-    <SelectTrigger className={clsx(className, "w-full")} style={style}>
+    <SelectTrigger
+      className={clsx(className, "w-full text-sm md:text-base")}
+      style={style}
+    >
       <SelectValue placeholder={placeholder} />
     </SelectTrigger>
     <SelectContent>
