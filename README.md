@@ -21,7 +21,7 @@ This is a flight booking application built with [Next.js](https://nextjs.org/), 
 1. Clone the repository:
 
    ```bash
-git clone https://github.com/benbugraer/plane-scape-appfellas.git
+   https://github.com/benbugraer/plane-scape-appfellas.git
    ```
 
 2. Navigate into the project directory:
