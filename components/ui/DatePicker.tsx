@@ -16,11 +16,28 @@ import {
 interface DatePickerProps {
   className?: string;
   style?: CSSProperties;
-  disabled?: boolean; // disabled prop eklendi
+  disabled?: boolean;
+  selected?: Date | null; // Yeni selected prop
+  onChange?: (date: Date | undefined) => void; // Tarih değişikliği için onChange callback
 }
 
-export function DatePicker({ className, style, disabled }: DatePickerProps) {
-  const [date, setDate] = React.useState<Date>();
+export function DatePicker({
+  className,
+  style,
+  disabled,
+  selected,
+  onChange,
+}: DatePickerProps) {
+  const [date, setDate] = React.useState<Date | undefined>(
+    selected || undefined
+  );
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setDate(date);
+    if (onChange) {
+      onChange(date); // Tarih değiştiğinde parent component'e bildirme
+    }
+  };
 
   return (
     <Popover>
@@ -31,10 +48,10 @@ export function DatePicker({ className, style, disabled }: DatePickerProps) {
             className,
             "w-[280px] justify-start text-left font-normal",
             !date && "text-muted-foreground",
-            disabled && "opacity-50 cursor-not-allowed" // disabled olunca stiller
+            disabled && "opacity-50 cursor-not-allowed"
           )}
           style={style}
-          disabled={disabled} // disabled prop ile butonu devre dışı bırakma
+          disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
@@ -45,7 +62,7 @@ export function DatePicker({ className, style, disabled }: DatePickerProps) {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateSelect}
             initialFocus
           />
         </PopoverContent>

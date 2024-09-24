@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, CSSProperties } from "react";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/button";
@@ -16,24 +14,31 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import clsx from "clsx";
+import destinations from "@/app/api/destinations/destinations";
 
-interface Airport {
-  code: string;
-  name: string;
+interface FlightFormProps {
+  onSearch: (searchCriteria: {
+    from: string;
+    to: string;
+    departureDate: Date | null;
+    returnDate: Date | null;
+    isRoundTrip: boolean;
+  }) => void;
 }
 
-const airports: Airport[] = [
-  { code: "JFK", name: "John F. Kennedy International Airport" },
-  { code: "LAX", name: "Los Angeles International Airport" },
-  { code: "SFO", name: "San Francisco International Airport" },
-  { code: "SEA", name: "Seattle-Tacoma International Airport" },
-];
-
-export default function FlightForm() {
+export default function FlightForm({ onSearch }: FlightFormProps) {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [departureDate, setDepartureDate] = useState<Date | null>(null);
+  const [returnDate, setReturnDate] = useState<Date | null>(null);
   const [isRoundTrip, setIsRoundTrip] = useState(true);
 
   const handleTripTypeChange = (type: "round" | "oneway") => {
     setIsRoundTrip(type === "round");
+  };
+
+  const handleSearch = () => {
+    onSearch({ from, to, departureDate, returnDate, isRoundTrip });
   };
 
   return (
@@ -86,7 +91,8 @@ export default function FlightForm() {
               <MdiAirplaneTakeoff className="w-5 h-5 text-primary" />
             }
             label="From"
-            options={airports}
+            value={from}
+            onChange={setFrom}
           />
           <LocationSelect
             className="md:rounded-r-full md:rounded-l-none w-full animate-in"
@@ -95,7 +101,8 @@ export default function FlightForm() {
               <MdiAirplaneLanding className="w-5 h-5 text-primary" />
             }
             label="To"
-            options={airports}
+            value={to}
+            onChange={setTo}
           />
         </div>
 
@@ -104,10 +111,11 @@ export default function FlightForm() {
           style={{ "--index": 4 } as CSSProperties}
         >
           <DatePicker
-            className={clsx(
-              "md:rounded-l-full w-full text-sm md:text-base",
-              !isRoundTrip && ""
-            )}
+            className={clsx("md:rounded-l-full w-full text-sm md:text-base")}
+            selected={departureDate}
+            onChange={(date: Date | null | undefined) =>
+              setDepartureDate(date === undefined ? null : date)
+            }
           />
           <DatePicker
             className={clsx(
@@ -115,6 +123,10 @@ export default function FlightForm() {
               !isRoundTrip &&
                 "opacity-50 bg-gray-400 text-white cursor-not-allowed"
             )}
+            selected={returnDate}
+            onChange={(date: Date | null | undefined) =>
+              setReturnDate(date === undefined ? null : date)
+            }
             disabled={!isRoundTrip}
           />
         </div>
@@ -122,6 +134,7 @@ export default function FlightForm() {
 
       <Button
         className="bg-secondary text-white px-4 py-5 mt-4 rounded-lg font-bold w-full md:w-auto animate-in"
+        onClick={handleSearch}
         style={{ "--index": 5 } as CSSProperties}
       >
         Show flights
@@ -135,7 +148,8 @@ interface LocationSelectProps {
   className?: string;
   label: string;
   style?: CSSProperties;
-  options: Airport[];
+  value: string;
+  onChange: (value: string) => void;
 }
 
 const LocationSelect: React.FC<LocationSelectProps> = ({
@@ -143,9 +157,10 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
   style,
   placeholder,
   label,
-  options,
+  value,
+  onChange,
 }) => (
-  <Select>
+  <Select value={value} onValueChange={onChange}>
     <SelectTrigger
       className={clsx(className, "w-full text-sm md:text-base")}
       style={style}
@@ -155,9 +170,11 @@ const LocationSelect: React.FC<LocationSelectProps> = ({
     <SelectContent>
       <SelectGroup>
         <SelectLabel>{label}</SelectLabel>
-        {options.map((airport) => (
-          <SelectItem key={airport.code} value={airport.code}>
-            {airport.name}
+        {destinations.map((destination) => (
+          <SelectItem key={destination.iata} value={destination.iata}>
+            {destination.city
+              ? `${destination.city}, ${destination.country}`
+              : destination.country}
           </SelectItem>
         ))}
       </SelectGroup>
