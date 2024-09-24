@@ -21,13 +21,13 @@ This is a flight booking application built with [Next.js](https://nextjs.org/), 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/flight-booking-app.git
+git clone https://github.com/benbugraer/plane-scape-appfellas.git
    ```
 
 2. Navigate into the project directory:
 
    ```bash
-   cd flight-booking-app
+   cd plane-scape-appfellas
    ```
 
 3. Install dependencies:
@@ -47,7 +47,6 @@ This is a flight booking application built with [Next.js](https://nextjs.org/), 
 ## API Routes
 
 - `GET /api/flights`: Fetch flights based on origin, destination, and date.
-- `POST /api/reservations`: Create a new reservation (to be implemented).
 
 ## Technologies Used
 
